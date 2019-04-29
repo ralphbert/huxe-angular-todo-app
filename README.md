@@ -8,14 +8,15 @@ This is just a small scaffold to start a simple todo app. Nothing special.
 
 Currently there is only a interface that adds typing information to the Todos. 
 
-This should change! Add a Todo model. It should have properties for a `title`, a `done` 
+This should change! Add a Todo model (path: `models/todo.model.ts`). It should have properties for a `title`, a `done` 
 flag and an unique `id`.
 
 Add a `setDone` method to toggle the done state. 
 
 ### Add a service that manages all your Todos
 
-The service should manage a list of Todo elements. Pick a suitable data structure.
+The service (path: `services/todo.service.ts`) should manage a list of Todo elements. 
+Pick a suitable data structure.
 Add a CRUD interface to the service to manipulate the list.
 
 ### Use the service in the components
