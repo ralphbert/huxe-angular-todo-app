@@ -1,0 +1,4 @@
+<div class="list-group mt-2 mb-2">
+  <app-todo (click)="toggle(todo)" *ngFor="let todo of todos; trackBy: trackByFn" [todo]="todo">
+  </app-todo>
+</div>

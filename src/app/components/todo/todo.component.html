@@ -1,0 +1,3 @@
+<span [class.done]="todo.done" [class.text-muted]="todo.done">{{ todo.title }}</span>
+<span *ngIf="todo.done" class="badge badge-success badge-pill">DONE</span>
+<span *ngIf="!todo.done" class="badge badge-danger badge-pill">TODO</span>
