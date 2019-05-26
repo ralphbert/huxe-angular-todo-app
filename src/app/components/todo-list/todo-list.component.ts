@@ -1,31 +1,38 @@
-import { Component } from '@angular/core';
-import { TodoItem } from '../todo/todo.component';
+import { Component, OnDestroy } from '@angular/core';
+import { TodoModel } from '../../models/todo.model';
+import { TodoService } from '../../services/todo.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss']
 })
-export class TodoListComponent {
-  todos: TodoItem[] = [{
-    id: 1,
-    title: 'Do the laundry',
-    done: true,
-  }, {
-    id: 2,
-    title: 'Watch GoT season 8',
-    done: false,
-  }, {
-    id: 3,
-    title: 'Call mum',
-    done: false,
-  }];
+export class TodoListComponent implements OnDestroy {
+  todos: TodoModel[] = [];
+  onDestroy$ = new Subject<void>();
 
-  toggle(todo: TodoItem) {
-    todo.done = !todo.done;
+  constructor(private todoService: TodoService) {
+    this.todoService.todos$
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(todos => {
+        this.todos = todos;
+      });
   }
 
-  trackByFn(todo: TodoItem) {
+  toggle(todo: TodoModel) {
+    this.todoService.toggle(todo)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe();
+  }
+
+  trackByFn(todo: TodoModel) {
     return todo.id;
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 }

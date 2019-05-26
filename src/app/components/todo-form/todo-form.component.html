@@ -1,8 +1,20 @@
 <form (ngSubmit)="onAdd(input)">
   <div class="input-group">
-    <input type="text" class="form-control" placeholder="E.g. buy pizza" #input>
+    <input
+      [disabled]="loading"
+      type="text"
+      class="form-control"
+      placeholder="E.g. buy pizza"
+      #input
+    >
     <div class="input-group-append">
-      <button class="btn btn-outline-secondary">Add</button>
+      <button
+        [disabled]="loading"
+        class="btn btn-outline-secondary"
+      >
+        <ng-container *ngIf="!loading">Add</ng-container>
+        <ng-container *ngIf="loading">Loading...</ng-container>
+      </button>
     </div>
   </div>
 </form>

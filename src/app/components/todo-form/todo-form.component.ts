@@ -1,27 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { TodoService } from '../../services/todo.service';
 
 @Component({
   selector: 'app-todo-form',
   templateUrl: './todo-form.component.html',
   styleUrls: ['./todo-form.component.scss']
 })
-export class TodoFormComponent implements OnInit {
+export class TodoFormComponent {
+  public loading = false;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private todoService: TodoService) {
   }
 
   onAdd(input: any) {
-    event.preventDefault();
     console.log(input);
     const value = input.value;
+    this.loading = true;
 
-    // TODO do something with the value
-    alert(value);
-
-    input.value = '';
-    input.focus();
+    this.todoService.add(value).subscribe(todo => {
+      console.log('done', todo);
+      input.value = '';
+    }, error => {
+      console.log(error);
+    }, () => {
+      input.focus();
+      this.loading = false;
+    });
   }
-
 }
