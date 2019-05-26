@@ -32,7 +32,7 @@ export class TodoService implements OnDestroy {
     });
   }
 
-  toggle(todo: TodoModel) {
+  toggle(todo: TodoModel): Observable<TodoModel> {
     return new Observable(observer => {
       const newTodo = todo.clone();
       newTodo.done = !newTodo.done;
@@ -46,7 +46,7 @@ export class TodoService implements OnDestroy {
       });
 
       this.todoSubject$.next(this.todos);
-      observer.next(todo);
+      observer.next(newTodo);
       observer.complete();
     });
   }
