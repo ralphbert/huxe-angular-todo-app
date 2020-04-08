@@ -1,31 +1,18 @@
-import { Component } from '@angular/core';
-import { TodoItem } from '../todo/todo.component';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { TodoItem, TodoItems } from '../../lib/todo-item.interface';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss']
+  styleUrls: ['./todo-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoListComponent {
-  todos: TodoItem[] = [{
-    id: 1,
-    title: 'Do the laundry',
-    done: true,
-  }, {
-    id: 2,
-    title: 'Watch GoT season 8',
-    done: false,
-  }, {
-    id: 3,
-    title: 'Call mum',
-    done: false,
-  }];
+  @Input() todos: TodoItems = [];
+  @Output() removeItem = new EventEmitter<TodoItem>();
+  @Output() toggleItem = new EventEmitter<TodoItem>();
 
-  toggle(todo: TodoItem) {
-    todo.done = !todo.done;
-  }
-
-  trackByFn(todo: TodoItem) {
+  trackByFn(index: number, todo: TodoItem) {
     return todo.id;
   }
 }

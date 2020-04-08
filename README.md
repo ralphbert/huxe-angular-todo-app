@@ -1,38 +1,23 @@
 # Huxe Angular Todo App
 
-This is just a small scaffold to start a simple todo app. Nothing special.
+This is a example application of a todo app.
 
-## Your tasks
+## Setup
 
-### Add a Todo model
+```
+npm install
+ng serve
+```
 
-Currently there is only a interface that adds typing information to the Todos. 
+## About
 
-This should change! Add a Todo model (path: `models/todo.model.ts`). It should have properties for a `title`, a `done` 
-flag and an unique `id`.
+All components that make up the todo list itself are so called `pure components`.
+They don't have a internal state but receive inputs and have outputs. Also, the change detection is set to `OnPush`. That means that
+they will only rerender themselves if a input changes or a event (like a click or input) is triggered.
 
-Add a `setDone` method to toggle the done state. 
+Only the `todos.component.ts` has all the logic in it to wire everything up correctly. Such a component is called `higher order component`.
 
-### Add a service that manages all your Todos
+The `todo.service.ts` is a immutable service: 
+After every operation it create a new list of `todos` or event new `todo` objects (see `update` method). This prevents rendering issues when working 
+with the `OnPush` change detection strategy.
 
-The service (path: `services/todo.service.ts`) should manage a list of Todo elements. 
-Pick a suitable data structure.
-Add a CRUD interface to the service to manipulate the list.
-
-### Use the service in the components
-
-Provide the service at a useful position of your app. What position suites your needs and why?
-
-Inject the service in the list and form component and use it accordingly.
-
-### Additional features
-
-#### Add a new FilterComponent to the list
-It should provide a text field which allows to filter the Todo list by a given term. 
-Check the Todo models if the title contains that term (case insensitive) and let the 
-service filter the Todos. Find a solution to only serve filtered elements by the service to
- your application.
-
-Add a `Hide done` button which hides all done todos from the list.
-
-Add a `Reset` button to reset all filters.

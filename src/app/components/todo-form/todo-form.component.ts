@@ -1,27 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-todo-form',
   templateUrl: './todo-form.component.html',
-  styleUrls: ['./todo-form.component.scss']
+  styleUrls: ['./todo-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TodoFormComponent implements OnInit {
+export class TodoFormComponent {
+  @Output() addTodo = new EventEmitter<string>();
+  @ViewChild('titleInput') input: ElementRef;
+  title = '';
 
-  constructor() { }
-
-  ngOnInit() {
+  onSubmit() {
+    if (this.title) {
+      this.addTodo.emit(this.title);
+      this.title = '';
+      this.input.nativeElement.focus();
+    }
   }
-
-  onAdd(input: any) {
-    event.preventDefault();
-    console.log(input);
-    const value = input.value;
-
-    // TODO do something with the value
-    alert(value);
-
-    input.value = '';
-    input.focus();
-  }
-
 }

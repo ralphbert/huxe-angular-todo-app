@@ -1,0 +1,11 @@
+<ng-container *ngIf="item" >
+  <div class="item-leading" (click)="onToggle()">
+    <input type="checkbox" [checked]="item.done" readonly>
+  </div>
+  <div class="item-body" (click)="onToggle()">
+    {{ item.title }}
+  </div>
+  <div class="item-trailing">
+    <button (click)="onDelete()">❌</button>
+  </div>
+</ng-container>

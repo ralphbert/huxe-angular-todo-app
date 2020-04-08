@@ -1,0 +1,6 @@
+<app-todo-list
+  [todos]="todoService.todos"
+  (removeItem)="todoService.remove($event.id)"
+  (toggleItem)="todoService.update($event.id, !$event.done)"
+></app-todo-list>
+<app-todo-form (addTodo)="onAdd($event)"></app-todo-form>

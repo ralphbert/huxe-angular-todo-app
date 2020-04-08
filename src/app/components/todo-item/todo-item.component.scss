@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #efefef;
+  }
+}
+
+.item-body {
+  flex: 1;
+  padding: 10px 5px 10px 0;
+}
+
+.item-leading {
+  padding: 0 5px;
+}
+
+.item-leading,
+.item-trailing {
+  flex: 0;
+}
